@@ -16,4 +16,5 @@ urlpatterns = [
     path('', include(router.urls)),
     #path("", infoAPI),
     #path('', views.InfoList.as_view())
+    path('create/', views.info_create, name='info_create')
 ]

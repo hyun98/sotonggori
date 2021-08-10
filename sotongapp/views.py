@@ -1,13 +1,13 @@
+from django.shortcuts import render
+from django.http import HttpResponse
 #from rest_framework.response import Response
 #from rest_framework.decorators import api_view
 from .serializers import InfoSerializer, OrganSerializer
 #from rest_framework.views import APIView
 from rest_framework import viewsets
 
-# from django.http import Http404
-# from rest_framework import status
-# from rest_framework.response import Response
 from .models import Organ, Information
+from .forms import InfoForm
 
 
 #FBV방식(?)내가 젤 처음 한거
@@ -20,16 +20,12 @@ from .models import Organ, Information
 
 #     return Response(serializer.data)
 
-# class OrganViewSet(viewsets.ModelViewSet):
-#     queryset = Organ.objects.all()
-#     serializer_class = OrganSerializer
 
 
 
 #ViewSet방식
 class InfoViewSet(viewsets.ModelViewSet):
     queryset = Information.objects.order_by('-organ_name', '-day', '-time')
-    #queryset = Information.objects.all()
     serializer_class = InfoSerializer
 
     def get_queryset(self):
@@ -37,27 +33,30 @@ class InfoViewSet(viewsets.ModelViewSet):
         qs = super().get_queryset()
 
         search = self.request.query_params.get('search','')
+
         if search:
             qs = qs.filter(organ_name=search)
 
         return qs
 
 
+class OrganViewSet(viewsets.ModelViewSet):
+    queryset = Organ.objects.all()
+    serializer_class = OrganSerializer
 
-#CBV방식 일단 따라하기
-# class InfoList(APIView):
 
-#     def post(self, request, format=None):
-#         serializer = InfoSerializer(data=request.data)
 
-#         if  serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+def info_create(request):
+    if request.method == 'POST':
+        form = InfoForm(request.POST)
+        if form.is_valid():
+            info = form.save()
+            info.save()
+            return render(request, 'sotongapp/test.html')
     
-
-#     def get(self, request, format=None):
-#         info_list = Information.objects.order_by('-organ_name', '-day', '-time')
-#         serializer = InfoSerializer(info_list, many=True)
-#         return Response(serializer.data)
-
-
+    else:
+        form = InfoForm()
+    
+    content = {'form': form }
+    return render(request, 'sotongapp/info_create.html', content)
