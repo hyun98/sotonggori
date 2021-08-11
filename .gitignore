@@ -260,3 +260,7 @@ Temporary Items
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python,macos,visualstudiocode
+
+#RSA encrypt
+.sotongprivate.pem
+*.pem
