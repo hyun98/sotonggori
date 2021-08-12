@@ -63,6 +63,14 @@ def SaveTempData(request):
         return response
 
 
+def UsedUserCount(request):
+    cnt = Information.objects.count()
+    data = {
+        'count': cnt
+    }
+    return JsonResponse(data)
+
+
 class InfoViewSet(viewsets.ModelViewSet):
     queryset = Information.objects.order_by('-day', '-time')
     serializer_class = InfoSerializer
