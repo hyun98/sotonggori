@@ -13,4 +13,5 @@ router.register(r'organs', OrganViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('save/', SaveTempData),
+    path('usercnt/', UsedUserCount),
 ]
