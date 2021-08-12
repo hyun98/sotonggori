@@ -84,4 +84,4 @@ class OrganViewSet(viewsets.ModelViewSet):
     serializer_class = OrganSerializer
     
     def get_queryset(self):
-        return super().get_queryset().filter(organ__urlname=self.kwargs['urlname'])
+        return super().get_queryset().filter(organ__urlname=self.request.GET['urlname'])
