@@ -82,3 +82,6 @@ class InfoViewSet(viewsets.ModelViewSet):
 class OrganViewSet(viewsets.ModelViewSet):
     queryset = Organ.objects.all()
     serializer_class = OrganSerializer
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(organ__urlname=self.kwargs['urlname'])
