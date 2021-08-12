@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = False
 
 # 실제 배포시 바꿀 예정
-ALLOWED_HOSTS = ['3.35.243.239']
+ALLOWED_HOSTS = ['*']
 
 
 # Database
