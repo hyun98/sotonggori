@@ -261,6 +261,9 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python,macos,visualstudiocode
 
-#RSA encrypt
+# RSA encrypt
 .sotongprivate.pem
 *.pem
+
+# nginx.conf
+nginx.conf
