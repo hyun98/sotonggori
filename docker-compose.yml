@@ -7,7 +7,7 @@ services:
     volumes:
       - /home/ubuntu/sotonggori/nginx.conf:/etc/nginx/nginx.conf
       - static:/data/static
-      - /home/ubuntu/react:/data/build
+      - /home/ubuntu/ReactForDocker:/data/build
     ports:
       - 80:80
   
