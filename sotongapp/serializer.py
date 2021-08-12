@@ -13,10 +13,11 @@ class OrganSerializer(serializers.ModelSerializer):
 
 class InfoSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='organ.name')
+    urlname = serializers.ReadOnlyField(source='organ.urlname')
 
     class Meta:
         model = Information
-        fields = ('name', 'temp', 'day', 'time')
+        fields = ('name', 'urlname', 'temp', 'day', 'time')
     
     def to_representation(self, instance):
         info = super().to_representation(instance)

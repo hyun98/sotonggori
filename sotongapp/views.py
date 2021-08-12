@@ -45,7 +45,7 @@ def SaveTempData(request):
     if request.method == 'POST':
         # if RSA_dec(request.COOKIES.get("Cookie", "")) != env('PEM_SECRET'):
         #     return HttpResponseForbidden
-        organ = get_object_or_404(Organ, name=request.POST['name'])
+        organ = get_object_or_404(Organ, urlname=request.POST['name'])
         temp_list = request.POST.getlist('temp')
         day_list = request.POST.getlist('day')
         time_list = request.POST.getlist('time')
