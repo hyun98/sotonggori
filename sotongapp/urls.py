@@ -7,11 +7,11 @@ app_name = 'sotongapp'
 
 router = routers.DefaultRouter()
 router.register(r'info', InfoViewSet)
-router.register(r'organs', OrganViewSet)
 
 
 urlpatterns = [
     path('', include(router.urls)),
     path('save/', SaveTempData),
     path('usercnt/', UsedUserCount),
+    path('organ/<str:urlname>', getOrgandata),
 ]
