@@ -79,9 +79,9 @@ class InfoViewSet(viewsets.ModelViewSet):
         return super().get_queryset().filter(organ__urlname=self.request.GET['search'])
 
 
-class OrganViewSet(viewsets.ModelViewSet):
-    queryset = Organ.objects.all()
-    serializer_class = OrganSerializer
-    
-    def get_queryset(self):
-        return super().get_queryset().filter(organ__urlname=self.request.GET['urlname'])
+def getOrgandata(request, urlname):
+    organ = get_object_or_404(Organ, urlname=urlname)
+    data = {
+        "name": organ.name
+    }
+    return JsonResponse(data)
