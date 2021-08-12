@@ -1,5 +1,16 @@
 from .base import *
 
+
+def read_secret(secret_name):
+    
+    file = open('/run/secrets/' + secret_name)
+    secret = file.read()
+    secret = secret.strip()
+    file.close()
+
+    return secret
+
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -20,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = False
 
 # 실제 배포시 바꿀 예정
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['3.35.243.239']
 
 
 # Database
@@ -30,9 +41,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sotong',
-        'USER': env('MARIADB_USER'),
-        'PASSWORD': env('MARIADB_PASSWORD'),
-        'HOST': env('MARIADB_HOST'),
+        'USER': 'project',
+        'PASSWORD': read_secret('MARIADB_PASSWORD'),
+        'HOST': 'mariadbsotong',
         'PORT': '3306',
     }
 }

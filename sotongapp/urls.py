@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 router.register(r'info', InfoViewSet)
 router.register(r'organs', OrganViewSet)
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('save/', SaveTempData),
