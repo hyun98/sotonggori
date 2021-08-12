@@ -28,6 +28,9 @@ services:
     
   djangosotong:
     image: djangosotong:1.0
+    secrets:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_PASSWORD
     networks:
         - sotong
     volumes:
