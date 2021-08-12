@@ -8,7 +8,7 @@ from sotongapp.models import Organ, Information
 class OrganSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organ
-        fields = '__all__'
+        fields = ('name')
 
 
 class InfoSerializer(serializers.ModelSerializer):
