@@ -76,7 +76,7 @@ class InfoViewSet(viewsets.ModelViewSet):
     serializer_class = InfoSerializer
 
     def get_queryset(self):
-        return super().get_queryset().filter(organ__name=self.request.GET['search'])
+        return super().get_queryset().filter(organ__url_name=self.request.GET['search'])
 
 
 class OrganViewSet(viewsets.ModelViewSet):
