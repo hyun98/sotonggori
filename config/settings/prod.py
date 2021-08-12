@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['3.35.243.239']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sotong',
+        'NAME': 'sotongdb',
         'USER': 'project',
         'PASSWORD': read_secret('MARIADB_PASSWORD'),
         'HOST': 'mariadbsotong',
