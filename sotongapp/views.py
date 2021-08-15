@@ -51,6 +51,7 @@ def SaveTempData(request):
         day_list = request.POST.getlist('day')
         time_list = request.POST.getlist('time')
         for i in range(len(temp_list)):
+            print("get data")
             day = datetime.strptime(day_list[i], "%Y-%m-%d")
             time = datetime.strptime(time_list[i], "%H:%M:%S")
             info = Information(organ=organ, temp=round(temp_list[i], 2), \
