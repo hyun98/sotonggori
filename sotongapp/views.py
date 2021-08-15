@@ -1,14 +1,10 @@
-from time import strptime, mktime, time
 from datetime import datetime
-import decimal
 
-from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.http.response import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from rest_framework import viewsets
-from rest_framework.response import Response
 
 from sotongapp.models import Organ, Information
 from sotongapp.serializer import InfoSerializer
@@ -18,7 +14,6 @@ from sotongapp.encrypt import get_encryptor, RSA_dec
 
 from pathlib import Path
 import os, environ
-
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,7 +46,7 @@ def SaveTempData(request):
         return response
 
 
-def UsedUserCount(request):
+def AllUserCount(request):
     cnt = Information.objects.count()
     data = {
         'count': cnt
@@ -67,7 +62,7 @@ class InfoViewSet(viewsets.ModelViewSet):
         return super().get_queryset().filter(organ__urlname=self.request.GET['search'])
 
 
-def getOrgandata(request, urlname):
+def GetOrganName(request, urlname):
     organ = get_object_or_404(Organ, urlname=urlname)
     data = {
         "name": organ.name
