@@ -10,7 +10,7 @@ class Organ(models.Model):
 
 
 class Information(models.Model):
-    temp = models.DecimalField(max_digits=4, decimal_places=2)
+    temp = models.FloatField()
     day = models.DateField()
     time = models.TimeField()
     organ = models.ForeignKey(Organ, on_delete=models.CASCADE, related_name='organ')
