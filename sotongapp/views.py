@@ -11,7 +11,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from sotongapp.models import Organ, Information
-from sotongapp.serializer import InfoSerializer, OrganSerializer
+from sotongapp.serializer import InfoSerializer
 # from sotongapp.decorator import organ_permission_check
 from sotongapp.encrypt import get_encryptor, RSA_dec
 
@@ -19,28 +19,13 @@ from sotongapp.encrypt import get_encryptor, RSA_dec
 from pathlib import Path
 import os, environ
 
-from django.http import HttpResponseForbidden
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
-# def getdata(infos, organ_name):
-#     temp_list = []
-    
-#     for info in infos:
-#         times = strptime(str(info.date)+str(info.time), '%Y-%m-%d %H:%M:%S')
-#         utc_now = mktime(times) * 1000
-#         temp_list.append([utc_now, info.temp])
 
-#     data = {
-#         'temp': temp_list,
-#         'name': organ_name,
-#     }
-#     return data
-
-# @organ_permission_check(["POST"])
 @csrf_exempt
 def SaveTempData(request):
     if request.method == 'POST':
