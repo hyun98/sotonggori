@@ -1,5 +1,6 @@
 from time import strptime, mktime, time
 from datetime import datetime
+import decimal
 
 from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
@@ -52,7 +53,7 @@ def SaveTempData(request):
         for i in range(len(temp_list)):
             day = datetime.strptime(day_list[i], "%Y-%m-%d")
             time = datetime.strptime(time_list[i], "%H:%M:%S")
-            info = Information(organ=organ, temp=temp_list[i], \
+            info = Information(organ=organ, temp=decimal.Decimal(temp_list[i]), \
                                 day=day, time=time)
             info.save()
         
