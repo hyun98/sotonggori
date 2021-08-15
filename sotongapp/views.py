@@ -53,7 +53,7 @@ def SaveTempData(request):
         for i in range(len(temp_list)):
             day = datetime.strptime(day_list[i], "%Y-%m-%d")
             time = datetime.strptime(time_list[i], "%H:%M:%S")
-            info = Information(organ=organ, temp=decimal.Decimal(temp_list[i]), \
+            info = Information(organ=organ, temp=round(temp_list[i], 2), \
                                 day=day, time=time)
             info.save()
         
