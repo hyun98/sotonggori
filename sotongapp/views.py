@@ -77,7 +77,7 @@ def GetOrganName(request, urlname):
 class GetVisitorView(APIView):
     
     def get(self, request, urlname):
-        organ= get_object_or_404(Organ, urlname=urlname)
+        organ = get_object_or_404(Organ, urlname=urlname)
         totaluser = Information.objects.filter(organ=organ).count()
         todayuser = Information.objects.filter(
             Q(day=datetime.today()) &\
