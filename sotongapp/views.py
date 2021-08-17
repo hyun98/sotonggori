@@ -1,14 +1,20 @@
-from datetime import datetime
+from datetime import date, datetime
+from django.conf.urls import url
+from django.core.checks.messages import Info
 
+from django.db.models import Q
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from sotongapp.models import Organ, Information
-from sotongapp.serializer import InfoSerializer
+from sotongapp.serializer import InfoSerializer, OrganSerializer
 from sotongapp.encrypt import get_encryptor, RSA_dec
+from sotongapp.utils import get_maxvnum_avgnum
 # from sotongapp.decorator import organ_permission_check
 
 from pathlib import Path
@@ -66,3 +72,24 @@ def GetOrganName(request, urlname):
         "name": organ.name
     }
     return JsonResponse(data)
+
+
+class GetVisitorView(APIView):
+    
+    def get(self, request, urlname):
+        organ= get_object_or_404(Organ, urlname=urlname)
+        totaluser = Information.objects.filter(organ=organ).count()
+        todayuser = Information.objects.filter(
+            Q(day=datetime.today()) &\
+            Q(organ=organ)
+        ).count()
+        avguser, maxuser = get_maxvnum_avgnum(totaluser, organ)
+        
+        data = {
+            "totaluser": totaluser,
+            "todayuser": todayuser,
+            "avguser": avguser,
+            "maxuser": maxuser
+        }
+        
+        return Response(data)
