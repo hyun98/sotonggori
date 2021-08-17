@@ -17,9 +17,9 @@ def get_maxvnum_avgnum(total, organ):
     for day in daterange:
         day_query_count = Information.objects.filter(Q(organ=organ) & Q(day=day)).count()
         if day_query_count > 0:
-            day_total += day_query_count
+            day_total += 1
             max_visitor = max(max_visitor, day_query_count)
     
-    avg_user_num = day_query_count / total
+    avg_user_num = total / day_total
     
     return avg_user_num, max_visitor
