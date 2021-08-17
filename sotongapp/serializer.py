@@ -1,4 +1,3 @@
-import json
 from time import strptime, mktime
 
 from rest_framework import serializers

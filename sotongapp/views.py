@@ -8,9 +8,8 @@ from rest_framework import viewsets
 
 from sotongapp.models import Organ, Information
 from sotongapp.serializer import InfoSerializer
-# from sotongapp.decorator import organ_permission_check
 from sotongapp.encrypt import get_encryptor, RSA_dec
-
+# from sotongapp.decorator import organ_permission_check
 
 from pathlib import Path
 import os, environ
@@ -31,7 +30,6 @@ def SaveTempData(request):
         day_list = request.POST.getlist('day')
         time_list = request.POST.getlist('time')
         for i in range(len(temp_list)):
-            print("get data")
             day = datetime.strptime(day_list[i], "%Y-%m-%d")
             time = datetime.strptime(time_list[i], "%H:%M:%S")
             temp = round(float(temp_list[i]), 2)
