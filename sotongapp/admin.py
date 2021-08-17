@@ -21,5 +21,5 @@ class InformationAdmin(admin.ModelAdmin):
         'day', 'organ__name',
     )
 
-admin.site.register(Organ)
-admin.site.register(Information)
+admin.site.register(Organ, OrganAdmin)
+admin.site.register(Information, InformationAdmin)
