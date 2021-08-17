@@ -18,7 +18,7 @@ class InformationAdmin(admin.ModelAdmin):
         'get_organ_name', 'temp', 'day', 'time'
     )
     list_filter = (
-        'day', 'get_organ_name',
+        'day', 'organ__name',
     )
     
     def get_organ_name(self, obj):
