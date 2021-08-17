@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls.conf import include
 from rest_framework import routers
-from sotongapp.views import SaveTempData, AllUserCount, GetOrganName, InfoViewSet
+from sotongapp.views import SaveTempData, AllUserCount, GetOrganName, GetVisitorView, InfoViewSet
 
 app_name = 'sotongapp'
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('save/', SaveTempData),
     path('usercnt/', AllUserCount),
     path('organ/<str:urlname>', GetOrganName),
+    path('visitor/<str:urlname>', GetVisitorView.as_view()),
 ]
