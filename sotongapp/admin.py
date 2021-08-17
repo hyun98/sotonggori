@@ -12,14 +12,20 @@ class OrganAdmin(admin.ModelAdmin):
 
 class InformationAdmin(admin.ModelAdmin):
     list_display = (
-        'temp', 'day', 'time', 'organ__name'
+        'get_organ_name', 'temp', 'day', 'time'
     )
     list_display_links = (
-        'temp', 'day', 'time', 'organ__name'
+        'get_organ_name', 'temp', 'day', 'time'
     )
     list_filter = (
-        'day', 'organ__name',
+        'day', 'get_organ_name',
     )
+    
+    def get_organ_name(self, obj):
+        return obj.organ.name
+    get_organ_name.admin_order_field = "organ"
+    get_organ_name.short_description = "기관명"
+    
 
 admin.site.register(Organ, OrganAdmin)
 admin.site.register(Information, InformationAdmin)
