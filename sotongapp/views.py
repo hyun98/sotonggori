@@ -7,7 +7,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -26,11 +26,14 @@ env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 
+class PublicApiMixin:
+    authentication_classes = ()
+    permission_classes = ()
+
+
 @csrf_exempt
 def SaveTempData(request):
     if request.method == 'POST':
-        # if RSA_dec(request.COOKIES.get("Cookie", "")) != env('PEM_SECRET'):
-        #     return HttpResponseForbidden
         organ = get_object_or_404(Organ, urlname=request.POST['name'])
         temp_list = request.POST.getlist('temp')
         day_list = request.POST.getlist('day')
@@ -49,6 +52,23 @@ def SaveTempData(request):
         response.set_cookie('RSA-token', get_encryptor())
         return response
 
+class SaveTempDataApi(PublicApiMixin, APIView):
+    def post(self, request, *args, **kwargs):
+        organ = get_object_or_404(Organ, urlname=request.data.get('organ', ''))
+        day = request.data.get('date', '')
+        time = request.data.get('time', '')
+        temp = request.data.get('temp', '')
+        
+        day = datetime.strptime(day, "%Y-%m-%d")
+        time = datetime.strptime(time, "%H:%M:%S")
+        temp = round(float(temp), 2)
+        info = Information(organ=organ, temp=temp, day=day, time=time)
+        info.save()
+        
+        return Response({
+            "message": "Success get data",
+        }, status=status.HTTP_200_OK)
+        
 
 def AllUserCount(request):
     cnt = Information.objects.count()
@@ -93,3 +113,4 @@ class GetVisitorView(APIView):
         }
         
         return Response(data)
+    
